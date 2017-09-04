@@ -1,0 +1,96 @@
+Jeffrey Ma
+
+Contact:
+If you have any problems compiling or installing the program, please feel free to contact me.
+
+There are three files with this assignment
+loan.py				Main file to request data from Kiva Api
+loan_class.py 		Classes to help store data in an easy format
+requirements.txt	File with dependencies to install for python library
+README				File to provide instructions, notes and explanation
+loan_test.py 		File to verify script, class functions and calculations are correct
+
+Assumptions:
+1. We want to use local timezone for the script to run
+2. Assume we dont need to care about over funded loans (funded_amount > loans_amount)
+3. If there is an Error (invalid query or incorrect parameter), exit the script with exit code 2
+
+Objective:
+1. Filter: for loans that have a status of 'fundRaising' and 'PlannedExpirationDate' in the next 24 hours
+2. Determine the total dollar amount it would take to fund all of these loans
+3. Show also a link to each loan and the amount it has left to fundraise.
+
+Instructions:
+	We will need python for this. Please install python version Python 2.7.10. I believe this will work with other version.
+
+	Install python:
+		Linux: apt-get install python2.7
+		Mac: https://www.python.org/downloads/
+
+	Install pip:
+		Mac: sudo easy_install pip
+
+	After installing python and pip, we can code in python.
+	However, we will need to install the dependency for this script:
+		pip install -r requirements.txt 
+
+	Now we should be ready to run and test the script.
+
+Compile (Script):
+	To compile with current default time.
+    	python loan.py
+    
+    To compile with a specific datetime. 
+    This will allow flexibility incase there is no result for the next 24 hours of current time.
+        python loan.py -d 'YEAR-MONTH-DAY HOUR:MINUTE:SEC'
+    
+    Example:
+        python loan.py -d '2017-09-08 23:44:30'
+
+	Example Script Output:
+		Default to current time
+		------------------------------------------------------------
+		Id: 1332414
+		Name: Phat's Group
+		Expiration date (Local Timezone): 2017-09-03 15:20:05-07:00
+		Loan amount: 750.0
+		Funded amount: 625.0
+		Remaining amount: 125.0
+		URL: https://api.kivaws.org/v1/loans/1332414.html
+		------------------------------------------------------------
+		Id: 1347909
+		Name: Amani
+		Expiration date (Local Timezone): 2017-09-04 07:20:05-07:00
+		Loan amount: 600.0
+		Funded amount: 450.0
+		Remaining amount: 150.0
+		URL: https://api.kivaws.org/v1/loans/1347909.html
+		------------------------------------------------------------
+		Id: 1350157
+		Name: Santos Joviel
+		Expiration date (Local Timezone): 2017-09-03 16:00:06-07:00
+		Loan amount: 1200.0
+		Funded amount: 350.0
+		Remaining amount: 850.0
+		URL: https://api.kivaws.org/v1/loans/1350157.html
+		============================================================
+		Current local timezone: America/Los_Angeles
+		Results for date: 2017-09-03 14:17:45.175554-07:00
+		Total number of loans: 3
+		Total amount of money needed: 2550.0
+
+Compile (Unit Test):
+	Run the unit test to verify the script is working
+		python loan_test.py -v
+
+	Example Unit Test Output:
+		test_loans_class (__main__.TestClassMethods) ... ok
+		test_cast_utc_to_local (__main__.TestScriptMethods) ... ok
+		test_check_within_one_day (__main__.TestScriptMethods) ... ok
+		test_find_total_amount (__main__.TestScriptMethods) ... ok
+		test_request_data (__main__.TestScriptMethods) ... ok
+
+		----------------------------------------------------------------------
+		Ran 5 tests in 0.202s
+
+		OK
